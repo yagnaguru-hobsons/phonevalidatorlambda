@@ -1,5 +1,6 @@
 
 async function validate() {
+  document.getElementById("result").innerHTML= ``;
   let response = await fetch('http://localhost:3000/validate', {
       method: 'POST',
       body: JSON.stringify({
@@ -13,8 +14,9 @@ async function validate() {
 
     if (response.ok) { 
       let json = await response.json();
-      console.log(json)
-      if( json.NumberValidateResponse.PhoneType !== 'INVALID'){
+
+      if( json && json.NumberValidateResponse
+         && json.NumberValidateResponse.PhoneType !== 'INVALID'){
         document.getElementById("result").innerHTML= `Phone number is a ${json.NumberValidateResponse.PhoneType} of 
         ${json.NumberValidateResponse.Carrier} from ${json.NumberValidateResponse.Country}`
       }else{
